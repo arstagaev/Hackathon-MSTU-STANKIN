@@ -1,0 +1,181 @@
+#include <Arduino.h>
+#include <Arduino.h>
+#include "ACS712.h"
+#include <ESP8266WiFi.h>
+//#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+const char* ssid     = "Keenetic-6756";
+const char* password = "03403blo";
+
+
+/*ПРОГРАММА ДЛЯ ИЗМЕРЕНИЯ ПАРАМЕТРОВ ЭЛЕКТРИЧЕСКОЙ СЕТИ */
+const int httpsPort = 443;
+const int httpPort = 80;
+#define relay D2 
+ACS712 sensor(ACS712_20A, A0);
+
+//ESP8266WebServer server(80);
+
+const char page1[] PROGMEM =
+"<!DOCTYPE html>\n"
+"<html>\n"
+"<meta charset='UTF-8'>\n"
+"<title>WEB MONITOR</title>\n"
+"<link href='http://liccontrol.com/web/gauge.ico' rel='icon' type='image/x-icon'/>\n"
+"<link rel='stylesheet' href='http://liccontrol.com/web/style.css' type='text/css'>\n"
+"<script src='http://code.jquery.com/jquery-3.1.1.min.js'></script>\n"
+"<script src='http://code.highcharts.com/highcharts.js'></script>\n"
+"</head>\n"
+;
+
+
+// void setup() {
+//   pinMode(LED_BUILTIN,1);
+//   pinMode(A0,0);
+//   pinMode(relay,1);
+//   Serial.begin(9600);
+//   Serial.println("Calibrating... Ensure that no current flows through the sensor at this moment");
+//   int zero = sensor.calibrate();
+//   Serial.print("Done! c=");
+//   Serial.println( zero);
+// }
+
+// void loop() {
+//   int an=analogRead(A0);
+//   Serial.println("A = "+ String(an));
+
+//   //digitalWrite(relay,1);
+//   delay(100);
+// }
+ 
+// void handleRoot() {
+//   server.send(200, "text/html", page2);
+// }
+
+void setup() {
+  Serial.begin(9600);
+  delay(100);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+
+ while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP()); //http://192.168.1.41/race.htm
+
+  Serial.println("start");
+}
+
+
+const char* host = "jsonplaceholder.typicode.com"; //"https://apidata.mos.ru/v1/";
+const char* url = "/posts?_limit=10";//"datasets/1488/rows/?api_key=79bba0ab1c9f025ca4136af28229c43a";
+
+void loop() {
+  
+WiFiClient client;
+
+ //String data = "pst=temperature>" + String(random(0,100)) +"||humidity>" + String(random(0,100)) + "||data>text";
+
+  Serial.print("Requesting POST: ");
+  
+  if (!client.connect(host, httpPort)) {
+    Serial.println("connection failed");
+    return;
+  }
+    Serial.println("Connected");
+  Serial.print(host);
+  Serial.println(url);
+
+  // отправляем запрос на сервер
+  client.print(String("GET ")+url+" HTTP/1.1\r\nHost: "+host+"\r\nConnection: close\r\n\r\n");
+
+
+  client.flush();     // ждем отправки всех данных
+  Serial.print(client.readString());
+  client.stop();
+  Serial.println("Closing connection");
+  // Send request to the server:
+  //  client.println("POST / HTTP/1.1");
+  //  client.println("Host: server_name");
+  //  client.println("Accept: */*");
+  //  client.println("Content-Type: application/x-www-form-urlencoded");  //  client.println("Content-Type: text/plain");
+  //  client.print("Content-Length: ");
+  //  client.println(data.length());
+  //  client.println();
+  //  client.print(data);
+
+   delay(500); // Can be changed
+  if (client.connected()) { 
+    client.stop();  // DISCONNECT FROM THE SERVER
+  }
+  Serial.println();
+  Serial.println("closing connection");
+  delay(5000);
+}
+
+// void setup() {
+//   Serial.begin(9600);
+//   delay(100);
+
+//   // We start by connecting to a WiFi network
+//   Serial.println();
+//   Serial.println();
+//   Serial.print("Connecting to ");
+//   Serial.println(ssid);
+
+//   WiFi.begin(ssid, password);
+
+//  while (WiFi.status() != WL_CONNECTED) {
+//     delay(500);
+//     Serial.print(".");
+//   }
+
+//   Serial.println("");
+//   Serial.println("WiFi connected");
+//   Serial.println("IP address: ");
+//   Serial.println(WiFi.localIP()); //http://192.168.1.41/race.htm
+//   WiFi.printDiag(Serial);
+//   //WiFiClient client;
+//   //const int httpPort = 80;
+//   // if (!client.connect(host, httpPort)) {
+//   //   Serial.println("connection failed");
+//   //   return;
+//   // }
+//   server.on("/race.htm", handleRoot);
+//   server.begin();
+ 
+//   Serial.println("start");
+// }
+
+// void loop() {
+
+//     server.handleClient();
+// //  String data = "pst=temperature>" + String(random(0,100)) +"||humidity>" + String(random(0,100)) + "||data>text";
+
+// //    Serial.print("Requesting POST: ");
+// //    // Send request to the server:
+// //    client.println("POST / HTTP/1.1");
+// //    client.println("Host: server_name");
+// //    client.println("Accept: */*");
+// //    client.println("Content-Type: application/x-www-form-urlencoded");
+// //    client.print("Content-Length: ");
+// //    client.println(data.length());
+// //    client.println();
+// //    client.print(data);
+
+// //    delay(500); // Can be changed
+// //   if (client.connected()) { 
+// //     client.stop();  // DISCONNECT FROM THE SERVER
+// //   }
+//   // Serial.println();
+//   // Serial.println("closing connection");
+//   // delay(5000);
+// }
