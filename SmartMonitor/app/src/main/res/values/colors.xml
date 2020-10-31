@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorblue">#0331D5</color>
+    <color name="colorTextIndicator1">#E2E5EF</color>
+    // for indicator
+    <color name="blackblue">#011970</color>
+    <color name="middleblue">#0331D5</color>
+    <color name="lightblue">#365DDF</color>
+
+</resources>

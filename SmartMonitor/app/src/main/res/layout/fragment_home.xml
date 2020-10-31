@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false"
+    android:background="#BEC5D3"
+    android:orientation="vertical"
+    tools:context="com.revolve44.smartmonitor3.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/middleblue"
+        android:layout_weight="12">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/middleblue"
+            android:layout_weight="10">
+            <ImageView
+                android:id="@+id/maps"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:foregroundGravity="center"
+
+                android:src="@drawable/ic_baseline_settings_24">
+
+            </ImageView>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/middleblue"
+            android:layout_weight="7">
+            <TextView
+                android:id="@+id/textdescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit ="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
+                android:textAlignment="center"
+                android:text="Devices"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/colorTextIndicator1">
+
+            </TextView>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/middleblue"
+            android:layout_weight="10">
+            <ImageView
+                android:id="@+id/alertX"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="70dp"
+                android:layout_gravity="right"
+                android:foregroundGravity="right"
+                android:src="@drawable/ic_baseline_warning_24">
+
+            </ImageView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:background="@drawable/ic_rectangle56">
+
+
+        <LinearLayout
+            android:id="@+id/twoIndicators"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="6">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/tickerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:textSize="60sp"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/colorTextIndicator1"
+                    app:ticker_animationDuration="3000"
+                    app:ticker_animateMeasurementChange="true"
+                    app:ticker_defaultCharacterList="number"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/tickerView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:textSize="60sp"
+                    android:textAlignment="viewEnd"
+
+                    android:textColor="@color/colorTextIndicator1"
+                    app:ticker_animationDuration="3000"
+                    app:ticker_animateMeasurementChange="true"
+                    app:ticker_defaultCharacterList="number"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:text="кВт*ч"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/montserrat"
+                android:text="рублей"
+                android:textStyle="bold">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+</LinearLayout>
